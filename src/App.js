@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Counter from "./Component/Counter";
+import { useDispatch, useSelector } from "react-redux";
+import { addvalue, togglet } from "./JS/actions/counteractions";
+import { useState } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const show = useSelector((state) => state.show);
+  const [first, setFirst] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Workshop Redux</h1>
+      <button onClick={() => dispatch(togglet())}>
+        {" "}
+        {show ? "hide" : "show"}
+      </button>
+      <br />
+      {show ? <Counter /> : "counter"}
+      <br />
+
+      <input type="number" onChange={(e) => setFirst(e.target.value)} />
+      <button onClick={() => dispatch(addvalue(first))}>add value</button>
     </div>
   );
 }
